@@ -1,0 +1,119 @@
+.list {
+  background: #ffffff;
+  padding: 80px 80px 20px 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: calc(100vh - 190px);
+}
+
+.listLink {
+  text-decoration: none;
+}
+
+.listList {
+  list-style: none;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+}
+
+.photo {
+  position: relative;
+  margin-bottom: 100px;
+  margin-right: 50px;
+}
+
+.firstPhoto {
+  width: 140px;
+  height: 180px;
+  position: relative;
+  z-index: 8;
+}
+.chevronContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #ffffff;
+  bottom: -40px;
+  right: -52px;
+  width: 96px;
+  height: 96px;
+  border-radius: 48px;
+  z-index: 10;
+  padding-top: 13px;
+}
+
+.photoСhevron {
+  width: 58px;
+  height: auto;
+}
+
+.firstBorder {
+  position: absolute;
+  left: -22px;
+  top: -20px;
+  width: 180px;
+  height: 220px;
+  z-index: 8;
+}
+
+.rank {
+  font-size: 15px;
+  font-weight: 700;
+  font-family: sans-serif;
+  margin-bottom: 8px;
+  color: #000000;
+}
+
+.name {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: rgb(17, 41, 146);
+  margin-bottom: 12px;
+}
+
+.department {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: black;
+}
+
+.info {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: rgb(17, 41, 146);
+}
+
+.span {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.searchInput {
+  display: block;
+  width: 290px;
+  height: 40px;
+  border-radius: 20px;
+  background: #f1f1f1;
+  padding-left: 50px;
+  border: none;
+  outline: none;
+  background-image: url(../../database/images/icons/mainImg/search.png);
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position-y: 7px;
+  background-position-x: 10px;
+}
+
+.searchInput::placeholder {
+  color: #535353;
+  font-size: 16px;
+}

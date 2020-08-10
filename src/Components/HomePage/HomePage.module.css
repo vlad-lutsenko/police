@@ -1,0 +1,19 @@
+.homePage {
+  padding-top: 80px;
+}
+
+.board {
+  margin: auto;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 60px;
+  padding: 17vh 11vw;
+  width: 70vw;
+  height: 50vh;
+}
+.phrase {
+  color: #ffffff;
+  font-size: 52px;
+  font-weight: 100;
+  font-family: sans-serif;
+  text-align: center;
+}

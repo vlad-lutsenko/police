@@ -1,0 +1,153 @@
+.card {
+  padding: 80px;
+  background: white;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+}
+
+.photo {
+  position: relative;
+  margin-bottom: 100px;
+  margin-right: 50px;
+}
+
+.firstPhoto {
+  width: 300px;
+  height: 420px;
+  position: relative;
+  z-index: 8;
+}
+
+.photoСhevron {
+  position: absolute;
+  bottom: -50px;
+  right: -40px;
+  width: 100px;
+  height: auto;
+  z-index: 10;
+}
+
+.firstBorder {
+  position: absolute;
+  left: -40px;
+  top: -40px;
+  width: 380px;
+  height: 500px;
+  z-index: 8;
+}
+
+.data {
+  position: relative;
+}
+
+.rank {
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.name {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 55px;
+  color: rgb(17, 41, 146);
+  margin-bottom: 30px;
+}
+
+.data::after {
+  position: absolute;
+  display: block;
+  background: #213869;
+  width: calc(100vw - 100px);
+  height: 10px;
+  content: "";
+  top: 110px;
+  left: -450px;
+}
+
+.info {
+  font-family: sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: rgb(17, 41, 146);
+}
+
+.department {
+  font-family: sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.span {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.fromAuthor,
+.postScriptum {
+  font-family: sans-serif;
+  font-size: 25px;
+  margin-bottom: 50px;
+}
+
+.text {
+  font-family: sans-serif;
+  font-style: italic;
+  font-size: 25px;
+  margin-bottom: 10px;
+  font-weight: 100;
+  border-left: 3px solid #000;
+  padding-left: 15px;
+}
+
+.author {
+  font-family: sans-serif;
+  font-size: 25px;
+  margin-bottom: 50px;
+  text-align: right;
+}
+
+.memory:last-child {
+  margin-bottom: 100px;
+}
+
+.secondPhotoBlock {
+  text-align: right;
+  position: relative;
+  padding-right: 30px;
+}
+
+.secondPhoto {
+  min-width: 550px;
+  height: auto;
+}
+
+.secondBorder {
+  position: absolute;
+  right: -10px;
+  top: -40px;
+}
+
+.button {
+  width: 200px;
+  height: 40px;
+  background-color: rgb(17, 41, 146);
+  border: none;
+  outline: none;
+  color: #ffffff;
+  border-radius: 20px;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #fff444;
+  color: rgb(17, 41, 146);
+  font-weight: 600;
+}
