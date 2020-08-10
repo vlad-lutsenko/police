@@ -69,6 +69,8 @@ const ExtendedInfo = () => {
         </div>
         <div>
           <p className={styles.fromAuthor}>{i.fromAuthor}</p>
+          {i.awards &&
+            i.awards.map((award) => <p className={styles.award}>{award}</p>)}
         </div>
         <div>
           {i.story.map((s) => (

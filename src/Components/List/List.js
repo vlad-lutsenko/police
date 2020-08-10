@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import _ from "lodash";
 
 import styles from "./List.module.css";
 import {
@@ -12,6 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 const List = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const [buttonOn, setButtonOn] = useState(false);
 
   const list = useSelector((state) => filteredPolicemanList(state));
   const filter = useSelector((state) => policemanListFilterSelector(state));
@@ -20,14 +22,31 @@ const List = () => {
     window.scrollTo({
       top: sessionStorage.getItem("listScroll"),
     });
+    window.addEventListener("scroll", _.throttle(scrollHandler, 1000));
     return () => {
       sessionStorage.setItem("listScroll", window.scrollY);
+      window.removeEventListener("scroll", scrollHandler);
     };
   }, []);
 
   const onchangeHandler = (e) => {
     const { value } = e.target;
     dispatch(setFilter(value));
+  };
+
+  function scrollHandler() {
+    if (window.scrollY > document.documentElement.clientHeight + 150) {
+      setButtonOn(true);
+    } else {
+      setButtonOn(false);
+    }
+  }
+
+  const onClickUpHandler = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -100,6 +119,10 @@ const List = () => {
         placeholder="Пошук..."
         value={filter}
       />
+
+      {buttonOn && (
+        <button className={styles.upButton} onClick={onClickUpHandler}></button>
+      )}
     </div>
   );
 };

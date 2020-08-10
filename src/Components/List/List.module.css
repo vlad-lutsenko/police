@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: space-between;
   min-height: calc(100vh - 190px);
+  /* position: relative; */
 }
 
 .listLink {
@@ -116,4 +117,17 @@
 .searchInput::placeholder {
   color: #535353;
   font-size: 16px;
+}
+
+.upButton {
+  width: 70px;
+  height: 70px;
+  background: transparent;
+  background-image: url(../../database/images/icons/mainImg/upArrow.png);
+  outline: none;
+  border: none;
+  background-size: cover;
+  position: fixed;
+  right: 80px;
+  bottom: 110px;
 }

@@ -24,3 +24,5 @@ yarn-error.log*
 
 
 git remote add origin git@github.com:vlad-lutsenko/police
+# Local Netlify folder
+.netlify
