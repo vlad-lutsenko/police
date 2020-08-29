@@ -145,10 +145,18 @@
   border-radius: 20px;
   font-family: sans-serif;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .button:hover {
   background-color: #fff444;
   color: rgb(17, 41, 146);
   font-weight: 600;
+}
+
+.responseLink {
+  display: block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: #ffffff;
 }

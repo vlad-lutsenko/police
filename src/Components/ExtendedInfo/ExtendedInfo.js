@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./ExtendedInfo.module.css";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation, useHistory, Link } from "react-router-dom";
 import { policemanListSelector } from "../../redux/selectors";
 
 const ExtendedInfo = () => {
@@ -70,7 +70,11 @@ const ExtendedInfo = () => {
         <div>
           <p className={styles.fromAuthor}>{i.fromAuthor}</p>
           {i.awards &&
-            i.awards.map((award) => <p className={styles.award}>{award}</p>)}
+            i.awards.map((award) => (
+              <p className={styles.award} key={award}>
+                {award}
+              </p>
+            ))}
         </div>
         <div>
           {i.story.map((s) => (
@@ -94,6 +98,17 @@ const ExtendedInfo = () => {
             src={require("../../database/images/border/second.png")}
           />
         </div>
+        <Link
+          to={{
+            pathname: `/response/${i.number}`,
+            state: {
+              from: location,
+            },
+          }}
+          className={styles.responseLink}
+        >
+          <button className={styles.button}>Запропонувати відгук</button>
+        </Link>
         <button className={styles.button} onClick={onClickHandler}>
           Назад
         </button>

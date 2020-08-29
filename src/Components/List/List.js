@@ -23,16 +23,12 @@ const List = () => {
       top: sessionStorage.getItem("listScroll"),
     });
     window.addEventListener("scroll", _.throttle(scrollHandler, 1000));
+
     return () => {
+      window.removeEventListener("scroll", _.throttle(scrollHandler, 1000));
       sessionStorage.setItem("listScroll", window.scrollY);
-      window.removeEventListener("scroll", scrollHandler);
     };
   }, []);
-
-  const onchangeHandler = (e) => {
-    const { value } = e.target;
-    dispatch(setFilter(value));
-  };
 
   function scrollHandler() {
     if (window.scrollY > document.documentElement.clientHeight + 150) {
@@ -40,7 +36,13 @@ const List = () => {
     } else {
       setButtonOn(false);
     }
+    console.log("scroll");
   }
+
+  const onchangeHandler = (e) => {
+    const { value } = e.target;
+    dispatch(setFilter(value));
+  };
 
   const onClickUpHandler = () => {
     window.scrollTo({
