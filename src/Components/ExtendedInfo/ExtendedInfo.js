@@ -80,7 +80,7 @@ const ExtendedInfo = () => {
           {i.story.map((s) => (
             <div key={`${s.author}-${s.text.length}`} className={styles.memory}>
               <p className={styles.text}>{s.text}</p>
-              <p className={styles.author}>{s.author}</p>
+              <p className={styles.author}>- {s.author}</p>
             </div>
           ))}
           <p className={styles.postScriptum}>{i.ps}</p>

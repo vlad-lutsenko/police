@@ -1,4 +1,5 @@
 export default {
   changePolicemanListFilter: "policemanListFilter/changeFilter",
-  addStoryToList: "policemanList/addStory",
+  loadPolicemanList: "policemanList/loadPolicemanList",
+  addStoryToList: "policeman/addStory",
 };

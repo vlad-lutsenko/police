@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import _ from "lodash";
 
 import styles from "./List.module.css";
@@ -8,7 +9,7 @@ import {
   policemanListFilterSelector,
 } from "../../redux/selectors";
 import { setFilter } from "../../redux/actions/policemanListFilter";
-import { Link, useLocation } from "react-router-dom";
+import { getListFromDb } from "../../redux/operations/policemanList";
 
 const List = () => {
   const dispatch = useDispatch();
@@ -30,13 +31,16 @@ const List = () => {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(getListFromDb());
+  }, [dispatch]);
+
   function scrollHandler() {
     if (window.scrollY > document.documentElement.clientHeight + 150) {
       setButtonOn(true);
     } else {
       setButtonOn(false);
     }
-    console.log("scroll");
   }
 
   const onchangeHandler = (e) => {

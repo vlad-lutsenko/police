@@ -1,7 +1,8 @@
-import policeList from "../../database/police.json";
-import types from "../types";
+// import policeList from "../../database/police.json";
+// const initialState = policeList;
 
-const initialState = policeList;
+import types from "../types";
+const initialState = [];
 
 export const policeListReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -12,6 +13,9 @@ export const policeListReducer = (state = initialState, action) => {
       policeman.story.push(action.payload.story);
 
       return state;
+
+    case types.loadPolicemanList:
+      return action.payload;
 
     default:
       return state;
