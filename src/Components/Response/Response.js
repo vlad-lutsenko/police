@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addStory } from "../../redux/actions/policemanList";
+// import { addStory } from "../../redux/actions/policemanList";
 
 import styles from "./Response.module.css";
+import { getPolicemanFromDb } from "../../redux/operations/asyncOps";
 
 const Response = () => {
-  const params = useParams();
-  const number = params.number;
-  const list = useSelector((state) => state.policeList);
   const [response, setResponse] = useState({});
-  const dispatch = useDispatch();
-  const policeman = list.find((policeman) => policeman.number === number);
+  const policeman = useSelector((state) => state.policeman);
   const { name, surname } = policeman;
+  const dispatch = useDispatch();
+  const number = useParams().number;
   const history = useHistory();
   const location = useLocation();
+
+  if (!policeman.name) {
+    dispatch(getPolicemanFromDb(number));
+  }
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -23,7 +26,8 @@ const Response = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(addStory(number, response));
+    console.log(response);
+    // dispatch(addStory(number, response));
     e.target.reset();
   };
 
@@ -44,6 +48,7 @@ const Response = () => {
           placeholder="Ваш відгук..."
           autoFocus={true}
           onInput={onChangeHandler}
+          required
         />
         <input
           className={styles.inputAuthor}
@@ -51,6 +56,7 @@ const Response = () => {
           name="author"
           placeholder="Автор (наприклад: колега, друг, дружина)"
           onInput={onChangeHandler}
+          required
         />
         <button className={styles.formButton}>Відправити відгук</button>
       </form>

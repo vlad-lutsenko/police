@@ -9,12 +9,14 @@ import {
   policemanListFilterSelector,
 } from "../../redux/selectors";
 import { setFilter } from "../../redux/actions/policemanListFilter";
-import { getListFromDb } from "../../redux/operations/policemanList";
+import { getListFromDb } from "../../redux/operations/asyncOps";
+import Loading from "../Loader/Loader";
 
 const List = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [buttonOn, setButtonOn] = useState(false);
+  const loader = useSelector((state) => state.loader);
 
   const list = useSelector((state) => filteredPolicemanList(state));
   const filter = useSelector((state) => policemanListFilterSelector(state));
@@ -57,6 +59,7 @@ const List = () => {
 
   return (
     <div className={styles.list}>
+      {loader && <Loading />}
       {!!list.length && (
         <ul className={styles.listList}>
           {list.map((i) => (
@@ -115,7 +118,9 @@ const List = () => {
           ))}
         </ul>
       )}
-      {list.length === 0 && <h2>за вашим запитом нічого не знайдено</h2>}
+      {list.length === 0 && !loader && (
+        <h2>за вашим запитом нічого не знайдено</h2>
+      )}
 
       <input
         className={styles.searchInput}

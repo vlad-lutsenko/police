@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 
 export const policemanListSelector = (state) => state.policeList;
+export const policemanSelector = (state) => state.policeman;
 export const policemanListFilterSelector = (state) => state.policemanListFilter;
 
 export const filteredPolicemanList = createSelector(
