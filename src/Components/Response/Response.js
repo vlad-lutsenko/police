@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./Response.module.css";
 import { getPolicemanFromDb } from "../../redux/operations/asyncOps";
+import Loading from "../Loader/Loader";
 
 const Response = () => {
   const [response, setResponse] = useState({});
   const policeman = useSelector((state) => state.policeman);
+  const loader = useSelector((state) => state.loader);
   const { name, surname } = policeman;
   const dispatch = useDispatch();
   const number = useParams().number;
@@ -36,34 +38,40 @@ const Response = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h2 className={styles.name}>
-        {name} {surname}
-      </h2>
-      <form className={styles.form} onSubmit={onSubmitHandler}>
-        <textarea
-          autoCapitalize="sentences"
-          className={styles.inputText}
-          name="text"
-          placeholder="Ваш відгук..."
-          autoFocus={true}
-          onInput={onChangeHandler}
-          required
-        />
-        <input
-          className={styles.inputAuthor}
-          type="text"
-          name="author"
-          placeholder="Автор (наприклад: колега, друг, дружина)"
-          onInput={onChangeHandler}
-          required
-        />
-        <button className={styles.formButton}>Відправити відгук</button>
-      </form>
-      <button className={styles.formButton} onClick={onClickHandler}>
-        Назад
-      </button>
-    </div>
+    <>
+      {loader && <Loading />}
+      <div className={styles.wrapper}>
+        <h2 className={styles.name}>
+          {name} {surname}
+        </h2>
+        <form className={styles.form} onSubmit={onSubmitHandler}>
+          <textarea
+            autoCapitalize="sentences"
+            className={styles.inputText}
+            name="text"
+            placeholder="Ваш відгук..."
+            autoFocus={true}
+            onInput={onChangeHandler}
+            required
+          />
+          <input
+            className={styles.inputAuthor}
+            type="text"
+            name="author"
+            placeholder="Автор (наприклад: колега, друг, дружина)"
+            onInput={onChangeHandler}
+            required
+          />
+          <button className={styles.formButton}>Відправити відгук</button>
+        </form>
+        <button className={styles.formButton} onClick={onClickHandler}>
+          Назад
+        </button>
+        <p className={styles.remark}>
+          * всі відгуки модеруються адміністрацією сайту
+        </p>
+      </div>
+    </>
   );
 };
 
