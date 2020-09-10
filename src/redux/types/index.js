@@ -5,4 +5,6 @@ export default {
   loadPoliceman: "policeman/loadPoliceman",
   setLoaderOn: "loader/on",
   setLoaderOff: "loader/off",
+  offerSendOn: "offerStory/sendOn",
+  offerSendOff: "offerStory/sendOff",
 };

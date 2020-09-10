@@ -1,25 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { addStory } from "../../redux/actions/policemanList";
+
+import Loading from "../Loader/Loader";
 
 import styles from "./Response.module.css";
-import { getPolicemanFromDb } from "../../redux/operations/asyncOps";
-import Loading from "../Loader/Loader";
+import {
+  getPolicemanFromDb,
+  offerResponse,
+} from "../../redux/operations/asyncOps";
+import { offerStorySendOff } from "../../redux/actions/offerStory";
 
 const Response = () => {
   const [response, setResponse] = useState({});
   const policeman = useSelector((state) => state.policeman);
   const loader = useSelector((state) => state.loader);
-  const { name, surname } = policeman;
+  const offerStorySend = useSelector((state) => state.offerStory);
   const dispatch = useDispatch();
   const number = useParams().number;
   const history = useHistory();
   const location = useLocation();
+  const { name, surname } = policeman;
 
   if (!policeman.name) {
     dispatch(getPolicemanFromDb(number));
   }
+
+  useEffect(() => {
+    return () => {
+      dispatch(offerStorySendOff());
+    };
+  }, [dispatch]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -28,8 +39,7 @@ const Response = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(response);
-    // dispatch(addStory(number, response));
+    dispatch(offerResponse(number, response));
     e.target.reset();
   };
 
@@ -40,36 +50,51 @@ const Response = () => {
   return (
     <>
       {loader && <Loading />}
+
       <div className={styles.wrapper}>
-        <h2 className={styles.name}>
-          {name} {surname}
-        </h2>
-        <form className={styles.form} onSubmit={onSubmitHandler}>
-          <textarea
-            autoCapitalize="sentences"
-            className={styles.inputText}
-            name="text"
-            placeholder="Ваш відгук..."
-            autoFocus={true}
-            onInput={onChangeHandler}
-            required
-          />
-          <input
-            className={styles.inputAuthor}
-            type="text"
-            name="author"
-            placeholder="Автор (наприклад: колега, друг, дружина)"
-            onInput={onChangeHandler}
-            required
-          />
-          <button className={styles.formButton}>Відправити відгук</button>
-        </form>
+        {!offerStorySend && (
+          <>
+            <h2 className={styles.name}>
+              {name} {surname}
+            </h2>
+            <form className={styles.form} onSubmit={onSubmitHandler}>
+              <textarea
+                autoCapitalize="sentences"
+                className={styles.inputText}
+                name="text"
+                placeholder="Ваш відгук..."
+                autoFocus={true}
+                onInput={onChangeHandler}
+                required
+              />
+              <input
+                className={styles.inputAuthor}
+                type="text"
+                name="author"
+                placeholder="Автор (наприклад: колега, друг, дружина)"
+                onInput={onChangeHandler}
+                required
+              />
+              <input
+                className={styles.inputAuthor}
+                type="email"
+                name="email"
+                placeholder="Ваш email (необов’язково)"
+                onInput={onChangeHandler}
+              />
+              <button className={styles.formButton}>Відправити відгук</button>
+              <p className={styles.remark}>
+                * всі відгуки модеруються адміністрацією сайту
+              </p>
+            </form>
+          </>
+        )}
+        {offerStorySend && (
+          <p className={styles.offerSend}>ваш запит принято</p>
+        )}
         <button className={styles.formButton} onClick={onClickHandler}>
           Назад
         </button>
-        <p className={styles.remark}>
-          * всі відгуки модеруються адміністрацією сайту
-        </p>
       </div>
     </>
   );
