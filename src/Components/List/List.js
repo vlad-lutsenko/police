@@ -4,50 +4,54 @@ import { Link, useLocation } from "react-router-dom";
 import _ from "lodash";
 
 import styles from "./List.module.css";
-import {
-  filteredPolicemanList,
-  policemanListFilterSelector,
-} from "../../redux/selectors";
-import { setFilter } from "../../redux/actions/policemanListFilter";
 import { getListFromDb } from "../../redux/operations/asyncOps";
 import Loading from "../Loader/Loader";
 
 const List = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const [buttonOn, setButtonOn] = useState(false);
   const loader = useSelector((state) => state.loader);
+  const policeList = useSelector((state) => state.policeList);
+  const [buttonOn, setButtonOn] = useState(false);
+  const [filter, setFilter] = useState("");
 
-  const list = useSelector((state) => filteredPolicemanList(state));
-  const filter = useSelector((state) => policemanListFilterSelector(state));
+  const list = policeList.filter(
+    (policeman) =>
+      policeman.surname.toLowerCase().includes(filter.toLowerCase().trim()) ||
+      policeman.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
+      policeman.department
+        .toLowerCase()
+        .includes(filter.toLowerCase().trim()) ||
+      policeman.death.toLowerCase().includes(filter.toLowerCase().trim())
+  );
 
-  useEffect(() => {
-    window.scrollTo({
-      top: sessionStorage.getItem("listScroll"),
-    });
-    window.addEventListener("scroll", _.throttle(scrollHandler, 1000));
-
-    return () => {
-      window.removeEventListener("scroll", _.throttle(scrollHandler, 1000));
-      sessionStorage.setItem("listScroll", window.scrollY);
-    };
-  }, []);
-
-  useEffect(() => {
-    dispatch(getListFromDb());
-  }, [dispatch]);
-
-  function scrollHandler() {
+  const debouncedScrollHandler = _.debounce(function scrollHandler() {
     if (window.scrollY > document.documentElement.clientHeight + 150) {
       setButtonOn(true);
     } else {
       setButtonOn(false);
     }
-  }
+  }, 1000);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: sessionStorage.getItem("listScroll"),
+    });
+    window.addEventListener("scroll", debouncedScrollHandler);
+
+    return () => {
+      window.removeEventListener("scroll", debouncedScrollHandler);
+      sessionStorage.setItem("listScroll", window.scrollY);
+    };
+  }, [debouncedScrollHandler]);
+
+  useEffect(() => {
+    dispatch(getListFromDb());
+  }, [dispatch]);
 
   const onchangeHandler = (e) => {
     const { value } = e.target;
-    dispatch(setFilter(value));
+    setFilter(value);
   };
 
   const onClickUpHandler = () => {
