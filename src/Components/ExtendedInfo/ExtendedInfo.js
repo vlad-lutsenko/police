@@ -88,7 +88,7 @@ const ExtendedInfo = () => {
                   className={styles.memory}
                 >
                   <p className={styles.text}>{s.text}</p>
-                  <p className={styles.author}>- {s.author}</p>
+                  <p className={styles.author}>- {s.author}.</p>
                 </div>
               ))}
             <p className={styles.postScriptum}>{policeman.ps}</p>
