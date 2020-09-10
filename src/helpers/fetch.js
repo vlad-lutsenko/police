@@ -2,7 +2,9 @@ import axios from "axios";
 
 // axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.baseURL = "https://policememorial.herokuapp.com";
-// axios.defaults.baseURL = "https://git.heroku.com/policememorial.git";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+// axios.defaults.headers.common["Access-Control-Allow-Headers"] =
+//   "Origin, X-Requested-With, Content-Type, Accept";
 
 export const getList = async () => await axios.get("/last-duty");
 
