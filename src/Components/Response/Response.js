@@ -27,6 +27,9 @@ const Response = () => {
   }
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     return () => {
       dispatch(offerStorySendOff());
     };
