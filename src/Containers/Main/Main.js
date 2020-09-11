@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import HomePage from "../../Components/HomePage/HomePage";
 import Loader from "../../Components/Loader/Loader";
@@ -29,6 +29,7 @@ const Main = () => {
           <Route path="/last-duty/:number" component={ExtendedInfo} />
           <Route path="/last-duty" component={List} />
           <Route path="/response/:number" component={Response} />
+          <Redirect to="/" />
         </Switch>
       </Suspense>
     </div>
