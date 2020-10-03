@@ -1,10 +1,12 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import HomePage from "../../Components/HomePage/HomePage";
 import Loader from "../../Components/Loader/Loader";
 
 import styles from "./Main.module.css";
+import { getListFromDb } from "../../redux/operations/asyncOps";
+import { useDispatch } from "react-redux";
 
 const List = lazy(() =>
   import("../../Components/List/List" /* webpackChunkName: "LastDuty" */)
@@ -21,6 +23,12 @@ const Response = lazy(() =>
 );
 
 const Main = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getListFromDb());
+  }, [dispatch]);
+
   return (
     <div className={styles.mainPage}>
       <Suspense fallback={<Loader />}>

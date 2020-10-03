@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import _ from "lodash";
 
 import styles from "./List.module.css";
-import { getListFromDb } from "../../redux/operations/asyncOps";
 import Loading from "../Loader/Loader";
 
 const List = () => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const loader = useSelector((state) => state.loader);
   const policeList = useSelector((state) => state.policeList);
@@ -44,10 +42,6 @@ const List = () => {
       sessionStorage.setItem("listScroll", window.scrollY);
     };
   }, [debouncedScrollHandler]);
-
-  useEffect(() => {
-    dispatch(getListFromDb());
-  }, [dispatch]);
 
   const onchangeHandler = (e) => {
     const { value } = e.target;
